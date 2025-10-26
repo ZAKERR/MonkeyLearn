@@ -13,39 +13,50 @@
     'use strict';
     // Your code here...
 
-    function observeSlider() {
+    const CHECK_LOGIN_BUTTON = "#comiis_nv > div > div > div > div.comiis_dlq > a:nth-child(1)"
 
-        // 检查状态
-        const loginUIObs = new MutationObserver(()=> {
-             const loginUI = document.querySelector("#fwin_login")
-             if (loginUI) {
-                 loginUIObs.disconnect()
-                 alert("loginUI Show")
-             }
-        });
-
-
-        loginUIObs.observe(document,{childList:true,subtree:true})
-
+    function doLogin() {
+        const loginButton = document.querySelector("div > div.rfm.mbw.bw0 > table > tbody > tr > td:nth-child(2) > button[name='loginsubmit']");
+        if (loginButton) {
+            setTimeout(300,loginButton.click())
+        }
     }
 
-    function doLogin() 
+    function observeSliderPass()
     {
-        
+        const checkBoxObs = new MutationObserver(()=> {
+            const sliderPass = document.querySelector('#dx_captcha_basic_bar-success_1[style="display: block;"]');
+            if (sliderPass)  {
+                checkBoxObs.disconnect();
+                doLogin();
+            }
+        })
+
+        checkBoxObs.observe(document,{childList:true,subtree:true})
     }
+
     
     
-    function clickLogin() {
-    
+    function loginCheck() {
+        const checkLoginButton = document.querySelector(CHECK_LOGIN_BUTTON);
+        if (checkLoginButton) {
+            checkLoginButton.click();
+            return true;
+        } else {
+            return false;
+        }
     }
     
     function main() {
-
+        if (loginCheck()) {
+            clickLogin();
+            observeSliderPass(observeSliderPass);
+        }
         
     }
 
-    window.addEventListener('load',()=>setTimeout(observeSlider,300))
 
+    window.addEventListener('load',()=>setTimeout(main,100))
 
 
 })();
