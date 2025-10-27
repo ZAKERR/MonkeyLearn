@@ -1,61 +1,66 @@
+(function() {
 
+    const mainDiv = document.querySelector('.main')
+    const btn = document.querySelector('.btn')
 
-
-function addElement() {
-
-    let lInput = document.createElement("input")
-    lInput.id = "leftInput"
-    lInput.style.width = "100px"
-    lInput.style.height = "15px"
-
-    let addOpText = document.createElement("span")
-    addOpText.innerText = " + "
-
-    let rInput = document.createElement("input")
-    rInput.id = "rightInput"
-    rInput.style.width = "100px"
-    rInput.style.height = "15px"
-
-    let equalOpText = document.createElement("span")
-    equalOpText.innerText = " = "
-
-    let result = document.createElement("span")
-    result.id = "resultSpan"
-
-    let calcDiv = document.createElement("div")
-    calcDiv.id = "calcDiv"
-
-    calcDiv.append(lInput)
-    calcDiv.append(addOpText)
-    calcDiv.append(rInput)
-    calcDiv.append(equalOpText)
-    calcDiv.append(result)
-
-    
-
-    let currentDiv = document.querySelector('div[style*="margin-top"]') 
-    if (currentDiv) {
-        currentDiv.prepend(calcDiv)
+    if (!mainDiv || !btn) {
+        alert("error")
+        return
     }
 
-}
+    function createUI() {
+
+       const lInput =  document.createElement("input")
+       const rInput =  document.createElement("input")
+       const resultSpan = document.createElement("span")
+       const addOpText = document.createElement("span")
+       const equalOpText = document.createElement("span")
+
+        lInput.id = "leftInput"
+        lInput.style.width = "100px"
+        lInput.style.height = "15px"
+
+        addOpText.textContent = " + "
+
+        rInput.id = "rightInput"
+        rInput.style.width = "100px"
+        rInput.style.height = "15px"
+
+        equalOpText.textContent = " = "
+        resultSpan.id = "resultSpan"
 
 
-function doCalcButton() {
-   const btn =  document.querySelector('.btn')
-    btn.addEventListener('click', () => {
-        let leftValue = parseFloat(document.getElementById("leftInput").value)
-        let rightValue = parseFloat(document.getElementById("rightInput").value)
-        let resultSpan = document.getElementById("resultSpan")
-        if (!isNaN(leftValue) && !isNaN(rightValue)) {
-            let sum = leftValue + rightValue
-            resultSpan.innerText = sum.toString()
-        } else {
-            resultSpan.innerText = "Invalid input"
-        }           
+        // [lInput,rInput].forEach(inp => inp.addEventListener('keydown', e => {
+        //     if (e.key === 'Enter') {
+        //         btn.click()
+        //     }
+        // }))
 
-    })
-}
 
-addElement()
-doCalcButton()
+
+        mainDiv.append(lInput,addOpText,rInput,equalOpText,resultSpan)
+    }
+
+    function bindClickEvent() {
+
+
+        btn.addEventListener('click', () => {
+            const lValue = parseFloat(document.getElementById("leftInput").value.trim())
+            const rValue = parseFloat(document.getElementById("rightInput").value.trim())
+
+            const resultSpan = document.getElementById("resultSpan")
+
+            if (Number.isFinite(lValue) && Number.isFinite(parseFloat(rValue))) 
+                resultSpan.textContent = (lValue + rValue).toString()
+            else 
+                resultSpan.textContent = "Invalid input"
+
+        })
+
+    }
+
+    createUI()
+    bindClickEvent();
+
+})()
+
