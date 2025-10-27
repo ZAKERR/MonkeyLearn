@@ -18,7 +18,7 @@
     function doLogin() {
         const loginButton = document.querySelector("div > div.rfm.mbw.bw0 > table > tbody > tr > td:nth-child(2) > button[name='loginsubmit']");
         if (loginButton) {
-            setTimeout(300,loginButton.click())
+            setTimeout(loginButton.click(),300)
         }
     }
 
@@ -49,7 +49,6 @@
     
     function main() {
         if (loginCheck()) {
-            clickLogin();
             observeSliderPass(observeSliderPass);
         }
         
