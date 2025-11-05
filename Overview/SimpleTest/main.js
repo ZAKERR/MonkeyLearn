@@ -27,14 +27,14 @@
         rInput.style.height = "15px"
 
         equalOpText.textContent = " = "
-        resultSpan.id = "resultSpan"
+        resultSpan.id = "resultSpan";
 
 
-        // [lInput,rInput].forEach(inp => inp.addEventListener('keydown', e => {
-        //     if (e.key === 'Enter') {
-        //         btn.click()
-        //     }
-        // }))
+        [lInput,rInput].forEach(inp => inp.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+                btn.click()
+            }
+        }))
 
 
 
